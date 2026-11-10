@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "harness-evidence": {
+      "type": "http",
+      "url": "https://agentic-harness-evidence.alightcocoa25.chatgpt.site/mcp"
+    }
+  }
+}

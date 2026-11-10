@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "harness-evidence": {
+      "type": "streamable-http",
+      "url": "https://agentic-harness-evidence.alightcocoa25.chatgpt.site/mcp"
+    }
+  }
+}

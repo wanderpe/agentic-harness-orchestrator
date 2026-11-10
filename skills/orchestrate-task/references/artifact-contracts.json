@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "2.0.0",
+  "artifacts": {
+    "task_context": {
+      "filename": "TASK_CONTEXT.md",
+      "requiredHeadings": [
+        "Task",
+        "Outcome",
+        "Users and Systems",
+        "Requirements",
+        "Constraints"
+      ]
+    },
+    "architecture": {
+      "filename": "ARCHITECTURE_PLAN.md",
+      "requiredHeadings": [
+        "Architecture Summary",
+        "Reused Components",
+        "Interfaces and Data Flow",
+        "Compatibility",
+        "QA Risk Matrix"
+      ]
+    },
+    "implementation_plan": {
+      "filename": "IMPLEMENTATION_PLAN.md",
+      "requiredHeadings": [
+        "Implementation Summary",
+        "Files to Create",
+        "Files to Modify",
+        "Implementation Order"
+      ]
+    },
+    "code_review": {
+      "filename": "CODE_REVIEW.md",
+      "requiredHeadings": [
+        "Overall Status",
+        "Findings",
+        "Contract Compliance",
+        "Regression Risk"
+      ],
+      "status": {
+        "field": "CODE_REVIEW_STATUS",
+        "allowedValues": [
+          "PASS",
+          "FAIL"
+        ]
+      }
+    },
+    "qa": {
+      "filename": "QA_REPORT.md",
+      "requiredHeadings": [
+        "QA Status",
+        "Requirement Validation",
+        "Acceptance Criteria",
+        "Manual Verification Guide"
+      ],
+      "status": {
+        "field": "QA_STATUS",
+        "allowedValues": [
+          "PASS",
+          "FAIL"
+        ]
+      }
+    },
+    "release": {
+      "filename": "RELEASE_REPORT.md",
+      "requiredHeadings": [
+        "User Approval",
+        "Documentation Updated",
+        "Project Notes Updated",
+        "Release Result"
+      ]
+    },
+    "hotfix_context": {
+      "filename": "HOTFIX_CONTEXT.md",
+      "requiredHeadings": [
+        "Bug Report",
+        "Root Cause",
+        "Affected Files",
+        "Impact Assessment"
+      ]
+    },
+    "hotfix_plan": {
+      "filename": "HOTFIX_PLAN.md",
+      "requiredHeadings": [
+        "Hotfix Summary",
+        "Lines to Touch",
+        "Fix Description",
+        "Regression Risk"
+      ]
+    },
+    "browser_test_instructions": {
+      "filename": "BROWSER_TEST_INSTRUCTIONS.md",
+      "requiredHeadings": [
+        "Task",
+        "Preconditions & Setup",
+        "Test Procedure",
+        "Required Deliverables"
+      ]
+    }
+  }
+}

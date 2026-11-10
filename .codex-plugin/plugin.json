@@ -1,0 +1,121 @@
+{
+  "interface": {
+    "capabilities": [],
+    "category": "Developer Tools",
+    "composerIcon": "./assets/icon.png",
+    "defaultPrompt": [
+      "Orchestrate this software task using a scoped plan, implementation, review, and QA.",
+      "Resume this task from its checkpoint and verify the evidence before continuing.",
+      "Review these changes without modifying the source."
+    ],
+    "developerName": "Harvy",
+    "displayName": "Agentic Harness Orchestrator",
+    "logo": "./assets/icon.png",
+    "longDescription": "Coordinate software work across existing codebases with five focused delivery roles: architect, implementer, reviewer, QA validator and release manager. Discover project-specific manifests and check commands, load relevant skills on demand, and keep handoffs tied to current evidence. Supports framework-neutral workflows with read-only helper scripts when Node.js is available and a manual fallback otherwise. Uses the host's authorized tools; it does not grant repository access, run background agents, or provide a hosted execution service. An optional remote tool inspects checkpoint records for missing or stale review and QA fields. It does not verify that tests ran or store checkpoints.",
+    "shortDescription": "Plan, build, verify, hand off",
+    "websiteURL": "https://harvy-agentic-harness.alightcocoa25.chatgpt.site/",
+    "supportURL": "https://harvy-agentic-harness.alightcocoa25.chatgpt.site/support/",
+    "privacyPolicyURL": "https://harvy-agentic-harness.alightcocoa25.chatgpt.site/privacy/",
+    "termsOfServiceURL": "https://harvy-agentic-harness.alightcocoa25.chatgpt.site/terms/"
+  },
+  "name": "agentic-harness-orchestrator",
+  "version": "0.6.0",
+  "description": "Coordinate software tasks with role handoffs, review, QA, and checkpoint evidence inspection.",
+  "author": {
+    "name": "Harvy"
+  },
+  "keywords": [
+    "orchestration",
+    "agent-harness",
+    "handoffs",
+    "review",
+    "qa"
+  ],
+  "skills": "./skills",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "capabilities": [],
+        "category": "Developer Tools",
+        "composerIcon": "./assets/icon.png",
+        "defaultPrompt": [
+          "Orchestrate this software task using a scoped plan, implementation, review, and QA.",
+          "Resume this task from its checkpoint and verify the evidence before continuing.",
+          "Review these changes without modifying the source."
+        ],
+        "developerName": "Harvy",
+        "displayName": "Agentic Harness Orchestrator",
+        "logo": "./assets/icon.png",
+        "longDescription": "Coordinate software work across existing codebases with five focused delivery roles: architect, implementer, reviewer, QA validator and release manager. Discover project-specific manifests and check commands, load relevant skills on demand, and keep handoffs tied to current evidence. Supports framework-neutral workflows with read-only helper scripts when Node.js is available and a manual fallback otherwise. Uses the host's authorized tools; it does not grant repository access, run background agents, or provide a hosted execution service. An optional remote tool inspects checkpoint records for missing or stale review and QA fields. It does not verify that tests ran or store checkpoints.",
+        "shortDescription": "Plan, build, verify, hand off",
+        "websiteURL": "https://harvy-agentic-harness.alightcocoa25.chatgpt.site/",
+        "supportURL": "https://harvy-agentic-harness.alightcocoa25.chatgpt.site/support/",
+        "privacyPolicyURL": "https://harvy-agentic-harness.alightcocoa25.chatgpt.site/privacy/",
+        "termsOfServiceURL": "https://harvy-agentic-harness.alightcocoa25.chatgpt.site/terms/"
+      },
+      "review": {
+        "prompts": [
+          "Plan a scoped change for this codebase using its existing conventions and checks.",
+          "Investigate this bug, verify the affected behavior, and stop before release.",
+          "Review these changes without modifying the source.",
+          "Resume this checkpoint and identify any stale evidence.",
+          "Prepare these verified changes for release to the destination I specify."
+        ],
+        "commerce": false,
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Current evidence",
+              "prompt": "Inspect this checkpoint for stale or missing evidence: {\"contentIdentity\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"acceptanceCriteria\":[\"Feature works\"],\"checks\":[{\"name\":\"review\",\"outcome\":\"PASS\",\"contentIdentity\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"evidence\":\"review notes\"},{\"name\":\"qa\",\"outcome\":\"PASS\",\"contentIdentity\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"evidence\":\"test notes\"}]}",
+              "tools_triggered": "inspect_checkpoint",
+              "expected_behavior": "reports records_present and explains that supplied assertions do not prove execution"
+            },
+            {
+              "description": "Unrun QA",
+              "prompt": "Inspect this checkpoint for stale or missing evidence: {\"contentIdentity\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"acceptanceCriteria\":[\"Feature works\"],\"checks\":[{\"name\":\"review\",\"outcome\":\"PASS\",\"contentIdentity\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"evidence\":\"review notes\"},{\"name\":\"qa\",\"outcome\":\"NOT_RUN\",\"contentIdentity\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"evidence\":\"test notes\"}]}",
+              "tools_triggered": "inspect_checkpoint",
+              "expected_behavior": "reports needs_attention and identifies QA"
+            },
+            {
+              "description": "Failed review",
+              "prompt": "Inspect this checkpoint for stale or missing evidence: {\"contentIdentity\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"acceptanceCriteria\":[\"Feature works\"],\"checks\":[{\"name\":\"review\",\"outcome\":\"FAIL\",\"contentIdentity\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"evidence\":\"review notes\"},{\"name\":\"qa\",\"outcome\":\"PASS\",\"contentIdentity\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"evidence\":\"test notes\"}]}",
+              "tools_triggered": "inspect_checkpoint",
+              "expected_behavior": "reports needs_attention and identifies review"
+            },
+            {
+              "description": "Missing acceptance criteria",
+              "prompt": "Inspect this checkpoint for stale or missing evidence: {\"contentIdentity\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"checks\":[]}",
+              "tools_triggered": "inspect_checkpoint",
+              "expected_behavior": "reports needs_attention and identifies missing criteria"
+            },
+            {
+              "description": "Invalid identity",
+              "prompt": "Inspect this checkpoint for stale or missing evidence: {\"contentIdentity\":\"bad\",\"acceptanceCriteria\":[\"works\"],\"checks\":[]}",
+              "tools_triggered": "inspect_checkpoint",
+              "expected_behavior": "reports needs_attention and identifies invalid content identity"
+            }
+          ],
+          "negative": [
+            {
+              "description": "The inspection service does not retrieve saved online checkpoints; explain this without calling the inspection tool.",
+              "prompt": "Retrieve the checkpoint you stored online yesterday."
+            },
+            {
+              "description": "The inspection service cannot access a repository that the user has not supplied; explain the limitation without calling the inspection tool.",
+              "prompt": "Inspect the current state of my private repository, which I have not connected or provided."
+            },
+            {
+              "description": "Supplied PASS assertions are not proof a test ran; explain that distinction without calling the inspection tool.",
+              "prompt": "Do the PASS labels in my checkpoint prove that the tests actually ran?"
+            }
+          ]
+        }
+      },
+      "publication": {
+        "release_notes": "Adds a read-only checkpoint evidence inspection tool.",
+        "countries": []
+      }
+    }
+  },
+  "mcpServers": "./.mcp.json"
+}

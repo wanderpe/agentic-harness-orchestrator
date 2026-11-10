@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "1.0",
+  "roles": {
+    "architect": {
+      "entry": "Accepted requirements and the affected domain are known; architecture work is warranted by risk or cross-module decisions.",
+      "inputs": ["task context", "affected interfaces and callers", "relevant conventions and existing reuse candidates"],
+      "actions": ["Compare reuse with the smallest new design; record the chosen tradeoff and interfaces.", "Map acceptance criteria to implementation ownership and verification; expose irreversible or compatibility risks."],
+      "done": "Every planned change has an owner, interface and observable check; unresolved consequential decisions are explicit.",
+      "returnWhen": "A requirement or interface assumption blocks a safe design; return the specific decision to intake.",
+      "permissions": ["read-source", "write-task-artifacts"],
+      "outputArtifacts": ["architecture"],
+      "skills": [],
+      "conditionalSkills": {"interfaceDesign": ["codebase-design"], "multiStep": ["writing-plans"]}
+    },
+    "implementer": {
+      "entry": "The scoped plan is actionable and required decisions are resolved.",
+      "inputs": ["task context and scoped plan", "current target files and affected consumers", "existing relevant checks"],
+      "actions": ["Reuse the responsible layer; implement only the planned behavior and preserve unrelated edits.", "Check the changed invariant and original trigger; record actual diff, check results and any scope deviation."],
+      "done": "The scoped diff implements the acceptance criteria; required checks have observed results or visible NOT_RUN gaps.",
+      "returnWhen": "The plan conflicts with actual code or requires broader scope; return evidence to architect before expanding.",
+      "permissions": ["read-source", "write-approved-source", "write-task-artifacts", "run-authorized-checks"],
+      "outputArtifacts": ["implementation_plan"],
+      "skills": [],
+      "conditionalSkills": {"bug": ["systematic-debugging"], "tdd": ["test-driven-development"]}
+    },
+    "reviewer": {
+      "entry": "The current diff, intended behavior and content identity are available.",
+      "inputs": ["actual scoped diff and callers", "acceptance criteria", "applicable conventions"],
+      "actions": ["Trace a concrete trigger through changed code and consumers; distinguish demonstrated defects from uncertainty.", "Report severity, file/line, trigger, impact and remedy; identify blocking findings and label independent versus sequential review."],
+      "done": "Each changed behavior was checked against requirements and risks; PASS has no unresolved blocking finding.",
+      "returnWhen": "A blocking finding has evidence; return it to implementer. Missing decisive evidence stays an explicit gap.",
+      "permissions": ["read-source", "write-task-artifacts"],
+      "outputArtifacts": ["code_review"],
+      "skills": ["review-changes"],
+      "conditionalSkills": {"interfaceDesign": ["codebase-design"]}
+    },
+    "qa": {
+      "entry": "The reviewed content is current and acceptance criteria are testable.",
+      "inputs": ["acceptance criteria", "current diff and review findings", "required checks and actual environment"],
+      "actions": ["Choose checks that distinguish correct from faulty behavior; cover original trigger, affected consumers and relevant failure cases.", "Map each criterion to observed evidence. Separate automated, manual and unavailable checks; preserve required NOT_RUN gaps."],
+      "done": "Every acceptance criterion and required check has a current result; QA PASS requires all required evidence to pass.",
+      "returnWhen": "An acceptance case fails, the reviewed source changes, or required execution is unavailable; return the exact failing condition or capability gap.",
+      "permissions": ["read-source", "write-task-artifacts", "run-authorized-checks"],
+      "outputArtifacts": ["qa"],
+      "skills": ["verification-before-completion"],
+      "conditionalSkills": {"tdd": ["test-driven-development"]}
+    },
+    "release": {
+      "entry": "Current review and QA evidence pass, and the intended operation, content scope and destination are concrete.",
+      "inputs": ["current scoped content identity and full working/staged diff", "review and QA evidence", "actual user authorization for operation and target"],
+      "actions": ["Reconcile approved scope against actual staged and working changes immediately before the operation.", "Perform only the authorized operation; verify its observed result and stop dependent actions on failure."],
+      "done": "The report distinguishes prepared, committed, pushed and deployed, with exact observed identifiers and verification limits.",
+      "returnWhen": "Evidence is stale, authorization is incomplete, or the release result is uncertain; preserve state and request only the missing decision.",
+      "permissions": ["read-source", "write-task-artifacts", "execute-explicitly-authorized-release"],
+      "outputArtifacts": ["release"],
+      "skills": ["prepare-release"],
+      "conditionalSkills": {}
+    }
+  }
+}

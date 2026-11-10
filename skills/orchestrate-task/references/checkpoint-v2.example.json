@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "2.0",
+  "taskId": "feat/replace-example",
+  "route": "feature",
+  "risk": "standard",
+  "completionScope": "implementation",
+  "status": "IN_PROGRESS",
+  "currentNode": "plan",
+  "scope": [
+    "src/replace-example.txt"
+  ],
+  "contentIdentity": null,
+  "acceptanceCriteria": [
+    "Replace with an observable criterion"
+  ],
+  "acceptanceResults": [],
+  "requiredChecks": [
+    "review",
+    "qa"
+  ],
+  "checks": [],
+  "artifacts": [],
+  "handoffs": [],
+  "attempts": [],
+  "approval": null,
+  "release": null,
+  "nextAction": "Inspect actual files, populate the plan, compute identity, then validate the next gate.",
+  "artifactContractVersion": "2.0.0"
+}
